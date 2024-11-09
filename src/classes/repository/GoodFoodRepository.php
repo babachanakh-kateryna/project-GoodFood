@@ -52,7 +52,7 @@ class GoodFoodRepository
     }
 
     // Détermination de la liste des plats (numéro et nom du plat) servis à une période donnée (date début, date fin).
-    public function getPlatsServisDansPeriode(string $dateStart, string $dateEnd): array
+    public function getPlatsServis(string $dateStart, string $dateEnd): array
     {
         $query = "
             SELECT DISTINCT p.numplat, p.libelle, p.type, p.prixunit
@@ -73,4 +73,28 @@ class GoodFoodRepository
         return $plats;
     }
 
+    // 2. Affichage de la liste des plats (numéro et nom du plat) qui n’ont jamais été  commandés pendant une période donnée (date début, date fin).
+    public function getPlatsNonCommandes(string $dateStart, string $dateEnd): array
+    {
+        $query = "
+            SELECT p.numplat, p.libelle, p.type, p.prixunit
+            FROM PLAT p
+            WHERE p.numplat NOT IN (
+                SELECT DISTINCT co.numplat
+                FROM CONTIENT co
+                JOIN COMMANDE c ON co.numcom = c.numcom
+                WHERE c.datcom BETWEEN :dateStart AND :dateEnd
+            );
+        ";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':dateStart' => $dateStart, ':dateEnd' => $dateEnd]);
+
+        $plats = [];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $plats[] = new Plat($row['numplat'], $row['libelle'], $row['type'], $row['prixunit']);
+        }
+
+        return $plats;
+    }
 }

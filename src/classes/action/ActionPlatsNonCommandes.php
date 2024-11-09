@@ -5,7 +5,7 @@ namespace iutnc\deefy\action;
 use iutnc\deefy\action\Action;
 use iutnc\deefy\repository\GoodFoodRepository;
 
-class ActionPlatsServis extends Action
+class ActionPlatsNonCommandes extends Action
 {
     public function execute(): string
     {
@@ -18,15 +18,15 @@ class ActionPlatsServis extends Action
         $dateEnd = $_GET['date_end'];
 
         // obtenir les plats servis dans la période
-        $plats = GoodFoodRepository::getInstance()->getPlatsServis($dateStart, $dateEnd);
+        $plats = GoodFoodRepository::getInstance()->getPlatsNonCommandes($dateStart, $dateEnd);
 
         /// si aucun plat n'a été servi dans cette période
         if (empty($plats)) {
-            return "Aucun plat n'a été servi dans cette période.";
+            return "Tous les plats ont été commandés dans cette période.";
         }
 
         // afficher les plats servis
-        $html = "<h2>Plats servis entre $dateStart et $dateEnd</h2><ul>";
+        $html = "<h2>Plats non commandés entre $dateStart et $dateEnd</h2><ul>";
         foreach ($plats as $plat) {
             $html .= "<li>{$plat->getNumPlat()} - {$plat->getLibelle()}</li>";
         }
@@ -39,17 +39,18 @@ class ActionPlatsServis extends Action
     private function renderForm(): string
     {
         return <<<HTML
-        <h2>Entrez la période</h2>
+        <h2>Entrez la période pour les plats non commandés</h2>
         <form method="get" action="">
-            <input type="hidden" name="action" value="getPlatsServis">
+            <input type="hidden" name="action" value="getPlatsNonCommandes">
             <label for="date_start">Date de début :</label>
             <input type="date" id="date_start" name="date_start" required>
             <br>
             <label for="date_end">Date de fin :</label>
             <input type="date" id="date_end" name="date_end" required>
             <br><br>
-            <button type="submit">Voir les plats servis</button>
+            <button type="submit">Voir les plats non commandés</button>
         </form>
 HTML;
     }
+
 }
