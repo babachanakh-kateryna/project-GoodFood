@@ -5,17 +5,21 @@
 **Lien vers le dépôt :** 
 
 ## Description du projet
+
+Le projet GoodFood vise à modéliser et implémenter une base de données pour une chaîne de restaurants nommée GOODFOOD, qui cherche à informatiser son système de gestion pour améliorer la qualité de service. Ce système permettra de gérer les commandes, les tables, les serveurs et les plats de manière efficace.
+
+
 ---
 
 ## Table des matières
 
-- [Modélisation des données du système de restauration GOODFOOD](#modélisation-des-données)
+- [Modélisation des données du système](#modélisation-des-données-du-système)
 - [Installation et configuration](#installation-et-configuration)
 - [Structure du projet](#structure-du-projet)
 
 ---
 
-##  Modélisation des données du système de restauration GOODFOOD
+##  Modélisation des données du système
 
 #### **Dépendances Fonctionnelles :** 
 
