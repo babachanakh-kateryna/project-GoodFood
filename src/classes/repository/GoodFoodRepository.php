@@ -69,6 +69,7 @@ class GoodFoodRepository
             JOIN CONTIENT c ON p.numplat = c.numplat
             JOIN COMMANDE co ON c.numcom = co.numcom
             WHERE co.datcom BETWEEN :dateStart AND :dateEnd
+            ORDER BY p.numplat ASC
         ";
 
         $stmt = $this->pdo->prepare($query);
@@ -129,6 +130,27 @@ class GoodFoodRepository
             GROUP BY s.nomserv
             ORDER BY chiffre_affaire DESC
         ";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':dateStart' => $dateStart, ':dateEnd' => $dateEnd]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // 5. Affichage de la liste des serveurs (nom) n’ayant pas réalisé de chiffre d’affaire
+    //  durant une période donnée (date début, date fin).
+    public function getServeursSansChiffreAffaire(string $dateStart, string $dateEnd): array
+    {
+        $query = "
+        SELECT s.nomserv
+        FROM serveur s
+        LEFT JOIN affecter a ON s.numserv = a.numserv
+        LEFT JOIN commande c ON a.numtab = c.numtab
+        WHERE (c.datcom IS NULL OR c.datcom NOT BETWEEN :dateStart AND :dateEnd)
+        AND (a.dataff IS NULL OR a.dataff NOT BETWEEN :dateStart AND :dateEnd)
+        GROUP BY s.nomserv;
+
+    ";
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([':dateStart' => $dateStart, ':dateEnd' => $dateEnd]);

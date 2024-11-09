@@ -42,7 +42,14 @@ class Dispatcher
                 $action = new act\ActionChiffreAffaireServeurs();
                 $html = $action->execute();
                 break;
-
+            case 'getServeursSansChiffreAffaire':
+                $action = new act\ActionServeursSansChiffreAffaire();
+                $html = $action->execute();
+                break;
+            case 'getCalculMontantCommande':
+                $action = new act\ActionCalculMontantCommande();
+                $html = $action->execute();
+                break;
 
         }
         $this->renderPage($html);
@@ -55,26 +62,26 @@ class Dispatcher
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>Good Food<</title>
+            <title>Good Food</title>
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+            <link rel="stylesheet" href="/css/styles.css"> 
         </head>
         <body>
-        
             <div class="sidebar">
-                <a href="?action=default">Home</a>
-                <a href="?action=getPlatsServis">PlatsServis</a>
-                <a href="?action=getPlatsNonCommandes">PlatsNonCommandes</a>
-                <a href="?action=getServeursParTable">ServeursParTable</a>
-                <a href="?action=getChiffreAffaireServeurs">ChiffreAffaireServeurs</a>
+                <a href="?action=default">Accueil</a>
+                <a href="?action=getPlatsServis">Détermination des plats servis</a>
+                <a href="?action=getPlatsNonCommandes">Plats jamais commandés</a>
+                <a href="?action=getServeursParTable">Serveurs par table</a>
+                <a href="?action=getChiffreAffaireServeurs">Chiffre d'affaire par serveur</a>
+                <a href="?action=getServeursSansChiffreAffaire">Serveurs sans chiffre d'affaire</a>
+                <a href="?action=getCalculMontantCommande">Calcul du montant total d'une commande</a>
             </div>
             
             <div class="content">
                 $html
             </div>
-        
         </body>
         </html>
-    HTML;
+HTML;
     }
-
 }
