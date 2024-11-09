@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "psr-4": {
+      "iutnc\\deefy\\": "src/classes/"
+    }
+  },
+  "require": {
+    "ext-pdo": "*",
+    "twbs/bootstrap": "5.3.3"
+  }
+}
