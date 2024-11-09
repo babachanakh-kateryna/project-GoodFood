@@ -60,6 +60,15 @@ class GoodFoodRepository
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    // retourne la liste des plats (numéro et nom du plat) du restaurant
+    public function getAllCommandeNumbers(): array
+    {
+        $query = "SELECT numcom FROM COMMANDE GROUP BY numcom ASC";
+        $stmt = $this->pdo->query($query);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // 1. Détermination de la liste des plats (numéro et nom du plat) servis à une période donnée (date début, date fin).
     public function getPlatsServis(string $dateStart, string $dateEnd): array
     {
@@ -157,4 +166,34 @@ class GoodFoodRepository
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // 6. Calcul du montant total d’une commande donnée (numéro de commande) et la mise à jour de la table COMMAND
+    public function calculMontantCommande(int $numCommande): float|bool
+    {
+        // obtenir le montant total de la commande
+        $query = "
+        SELECT SUM(p.prixunit * c.quantite) AS montant_total
+        FROM CONTIENT c
+        JOIN PLAT p ON c.numplat = p.numplat
+        WHERE c.numcom = :numCommande
+    ";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':numCommande' => $numCommande]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // si la commande n'existe pas ou si le montant total est NULL
+        if (!$result || is_null($result['montant_total'])) {
+            return false;
+        }
+
+        $montantTotal = (float) $result['montant_total'];
+
+        //  mettre à jour le montant total de la commande
+        $updateQuery = "UPDATE COMMANDE SET montcom = :montantTotal WHERE numcom = :numCommande";
+        $updateStmt = $this->pdo->prepare($updateQuery);
+        $updateStmt->execute([':montantTotal' => $montantTotal, ':numCommande' => $numCommande]);
+
+        return $montantTotal;
+    }
+
 }

@@ -5,6 +5,10 @@ namespace iutnc\deefy\action;
 use iutnc\deefy\action\Action;
 use iutnc\deefy\repository\GoodFoodRepository;
 
+/**
+ * Class ActionPlatsServis - 1. Détermination de la liste des plats (numéro et nom du plat) servis
+ * à une période donnée (date début, date fin).
+ */
 class ActionPlatsServis extends Action
 {
     public function execute(): string
