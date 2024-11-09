@@ -18,14 +18,6 @@ abstract class Action {
         $this->script_name = $_SERVER['SCRIPT_NAME'];
     }
 
-    public function execute() : string {
-        if($this->http_method === "POST") {
-            return $this->executePost();
-        }
-        return $this->executeGet();
-    }
-
-    abstract function executeGet(): string;
-    abstract function executePost(): string;
+    abstract public function execute() : string;
 
 }

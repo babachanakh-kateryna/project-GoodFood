@@ -10,13 +10,8 @@ use iutnc\deefy\repository\GoodFoodRepository;
  */
 class DefaultAction extends Action
 {
-    public function executeGet(): string
+    public function execute(): string
     {
         return "<h1>Bienvenue !</h1>";
-    }
-
-    public function executePost(): string
-    {
-        return "Aucune action selectionnée ou action invalide";
     }
 }
