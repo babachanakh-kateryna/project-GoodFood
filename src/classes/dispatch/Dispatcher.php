@@ -43,27 +43,27 @@ class Dispatcher
     private function renderPage(string $html): void
     {
         echo <<<HTML
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Good Food<</title>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    </head>
-    <body>
-    
-        <div class="sidebar">
-            <a href="?action=default">Home</a>
-            <a href="?action=getPlatsServis">PlatsServis</a>
-            <a href="?action=getPlatsNonCommandes">PlatsNonCommandes</a>
-        </div>
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Good Food<</title>
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+        </head>
+        <body>
         
-        <div class="content">
-            $html
-        </div>
-    
-    </body>
-    </html>
+            <div class="sidebar">
+                <a href="?action=default">Home</a>
+                <a href="?action=getPlatsServis">PlatsServis</a>
+                <a href="?action=getPlatsNonCommandes">PlatsNonCommandes</a>
+            </div>
+            
+            <div class="content">
+                $html
+            </div>
+        
+        </body>
+        </html>
     HTML;
     }
 

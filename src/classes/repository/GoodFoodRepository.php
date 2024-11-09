@@ -2,9 +2,7 @@
 
 namespace iutnc\deefy\repository;
 
-use iutnc\deefy\rest\lists\Plat;
-use iutnc\deefy\rest\lists\PlatList;
-use iutnc\deefy\rest\lists\Serveur;
+use iutnc\deefy\tables\Plat;
 use PDO;
 
 /**
@@ -53,8 +51,8 @@ class GoodFoodRepository
         ];
     }
 
-    // Détermination de la liste des plats (numéro et nom du plat) servis à une  période donnée (date début, date fin).
-    public function getPlatsServisDansPeriode(string $dateStart, string $dateEnd): PlatList
+    // Détermination de la liste des plats (numéro et nom du plat) servis à une période donnée (date début, date fin).
+    public function getPlatsServisDansPeriode(string $dateStart, string $dateEnd): array
     {
         $query = "
             SELECT DISTINCT p.numplat, p.libelle, p.type, p.prixunit
@@ -67,14 +65,12 @@ class GoodFoodRepository
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([':dateStart' => $dateStart, ':dateEnd' => $dateEnd]);
 
-        $platList = new PlatList();
-
+        $plats = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $plat = new Plat( $row['numplat'], $row['libelle'], $row['type'],  $row['prixunit']);
-            $platList->addPlat($plat);
+            $plats[] = new Plat($row['numplat'], $row['libelle'], $row['type'], $row['prixunit']);
         }
 
-        return $platList;
+        return $plats;
     }
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace iutnc\deefy\rest\lists;
+namespace iutnc\deefy\tables;
 
 /**
  * Class Plat est une classe qui represente un plat
@@ -19,7 +19,8 @@ class Plat
         $this->type = $type;
         $this->prixunit = $prixunit;
     }
-    
+
+    //getters
     public function getNumPlat(): int {
         return $this->numplat;
     }
