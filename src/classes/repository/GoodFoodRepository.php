@@ -51,7 +51,16 @@ class GoodFoodRepository
         ];
     }
 
-    // Détermination de la liste des plats (numéro et nom du plat) servis à une période donnée (date début, date fin).
+    // retourne la liste des tables (numéro de table) du restaurant
+    public function getAllTables(): array
+    {
+        $query = "SELECT numtab FROM TABL";
+        $stmt = $this->pdo->query($query);
+
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    // 1. Détermination de la liste des plats (numéro et nom du plat) servis à une période donnée (date début, date fin).
     public function getPlatsServis(string $dateStart, string $dateEnd): array
     {
         $query = "
@@ -65,12 +74,7 @@ class GoodFoodRepository
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([':dateStart' => $dateStart, ':dateEnd' => $dateEnd]);
 
-        $plats = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $plats[] = new Plat($row['numplat'], $row['libelle'], $row['type'], $row['prixunit']);
-        }
-
-        return $plats;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // 2. Affichage de la liste des plats (numéro et nom du plat) qui n’ont jamais été  commandés pendant une période donnée (date début, date fin).
@@ -90,11 +94,23 @@ class GoodFoodRepository
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([':dateStart' => $dateStart, ':dateEnd' => $dateEnd]);
 
-        $plats = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $plats[] = new Plat($row['numplat'], $row['libelle'], $row['type'], $row['prixunit']);
-        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-        return $plats;
+    // 3. Etablissement de la liste serveurs (nom et date) qui ont servi une table donnée  à une période donnée (date début, date fin).
+    public function getServeursByTableAndPeriod(int $numtab, string $dateStart, string $dateEnd): array
+    {
+        $query = "
+            SELECT DISTINCT s.nomserv, a.dataff AS date_affectation
+            FROM SERVEUR s
+            JOIN AFFECTER a ON s.numserv = a.numserv
+            WHERE a.numtab = :numtab
+              AND a.dataff BETWEEN :dateStart AND :dateEnd
+        ";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':numtab' => $numtab, ':dateStart' => $dateStart, ':dateEnd' => $dateEnd]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

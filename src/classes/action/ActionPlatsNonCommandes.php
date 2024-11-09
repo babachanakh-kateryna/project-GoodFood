@@ -28,7 +28,7 @@ class ActionPlatsNonCommandes extends Action
         // afficher les plats servis
         $html = "<h2>Plats non commandés entre $dateStart et $dateEnd</h2><ul>";
         foreach ($plats as $plat) {
-            $html .= "<li>{$plat->getNumPlat()} - {$plat->getLibelle()}</li>";
+            $html .= "<li>{$plat['numplat']} - {$plat['libelle']}</li>";
         }
         $html .= "</ul>";
 
