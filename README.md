@@ -14,6 +14,7 @@ Le projet GoodFood vise à modéliser et implémenter une base de données pour 
 ## Table des matières
 
 - [Modélisation des données du système](#modélisation-des-données-du-système)
+- [Script de base de données](#script-de-base-de-données)
 - [Installation et configuration](#installation-et-configuration)
 - [Structure du projet](#structure-du-projet)
 
@@ -76,4 +77,10 @@ numCom, numPlat - ce sont les seuls clés qui ne dépendent d’aucun autre attr
      - DF: (numtab, dataff) → numserv
      - Clé primaire : (numtab, dataff)
      - Numserv dépend directement des clés composites numtab et dataff. Table en 3NF.
+
+---
+
+## Script de base de données
+   
+Le script goodfood.sql dans le dossier conf contient toutes les commandes SQL nécessaires pour créer et remplir la base de données avec les tables et données nécessaires. Le script goodfood_triggers.sql dans le dossier conf contient les deux triggers
 
