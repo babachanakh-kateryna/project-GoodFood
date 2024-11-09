@@ -113,4 +113,26 @@ class GoodFoodRepository
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // 4. Affichage (dans un ordre décroissant) du chiffre d’affaire et le nombre de commandes réalisés
+    // par chaque serveur (nom, chiffre d’affaire, nombre de commandes) en une période donnée (date début, date fin).
+    public function getChiffreAffaireEtCommandesParServeur(string $dateStart, string $dateEnd): array
+    {
+        $query = "
+            SELECT s.nomserv,
+                   COUNT(co.numcom) AS nombre_commandes,
+                   SUM(co.montcom) AS chiffre_affaire
+            FROM SERVEUR s
+            JOIN AFFECTER a ON s.numserv = a.numserv
+            JOIN COMMANDE co ON a.numtab = co.numtab AND a.dataff = co.datcom
+            WHERE co.datcom BETWEEN :dateStart AND :dateEnd
+            GROUP BY s.nomserv
+            ORDER BY chiffre_affaire DESC
+        ";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([':dateStart' => $dateStart, ':dateEnd' => $dateEnd]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

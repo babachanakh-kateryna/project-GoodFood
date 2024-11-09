@@ -38,6 +38,10 @@ class Dispatcher
                 $action = new act\ActionServeursParTable();
                 $html = $action->execute();
                 break;
+            case 'getChiffreAffaireServeurs':
+                $action = new act\ActionChiffreAffaireServeurs();
+                $html = $action->execute();
+                break;
 
 
         }
@@ -61,6 +65,7 @@ class Dispatcher
                 <a href="?action=getPlatsServis">PlatsServis</a>
                 <a href="?action=getPlatsNonCommandes">PlatsNonCommandes</a>
                 <a href="?action=getServeursParTable">ServeursParTable</a>
+                <a href="?action=getChiffreAffaireServeurs">ChiffreAffaireServeurs</a>
             </div>
             
             <div class="content">
