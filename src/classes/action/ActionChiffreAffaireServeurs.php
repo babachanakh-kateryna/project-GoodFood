@@ -5,6 +5,11 @@ namespace iutnc\deefy\action;
 use iutnc\deefy\action\Action;
 use iutnc\deefy\repository\GoodFoodRepository;
 
+/**
+ * Class ActionChiffreAffaireServeurs - 4. Affichage (dans un ordre décroissant)
+ * du chiffre d’affaire et le nombre de commandes réalisés
+ * par chaque serveur (nom, chiffre d’affaire, nombre de commandes) en une période donnée (date début, date fin).
+ */
 class ActionChiffreAffaireServeurs extends Action
 {
     public function execute(): string

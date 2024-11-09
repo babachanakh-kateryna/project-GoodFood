@@ -5,7 +5,10 @@ namespace iutnc\deefy\action;
 use iutnc\deefy\action\Action;
 use iutnc\deefy\repository\GoodFoodRepository;
 
-// 6. Calcul du montant total d’une commande donnée (numéro de commande) et la mise à jour de la table COMMAND
+/**
+ * Class ActionCalculMontantCommande - 6. Calcul du montant total d’une commande donnée (numéro de commande)
+ * et la mise à jour de la table COMMAND
+ */
 class ActionCalculMontantCommande extends Action
 {
     public function execute(): string

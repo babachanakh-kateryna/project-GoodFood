@@ -5,6 +5,10 @@ namespace iutnc\deefy\action;
 use iutnc\deefy\action\Action;
 use iutnc\deefy\repository\GoodFoodRepository;
 
+/**
+ * Class ActionServeursParTable - 3. Etablissement de la liste serveurs (nom et date)
+ * qui ont servi une table donnée à une période donnée (date début, date fin).
+ */
 class ActionServeursParTable extends Action
 {
 

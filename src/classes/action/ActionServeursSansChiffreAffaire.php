@@ -6,8 +6,8 @@ use iutnc\deefy\action\Action;
 use iutnc\deefy\repository\GoodFoodRepository;
 
 /**
- * Affichage de la liste des serveurs (nom) n’ayant pas réalisé de chiffre d’affaire
- * durant une période donnée (date début, date fin).
+ * Class ActionServeursSansChiffreAffaire - 5. Affichage de la liste des serveurs (nom)
+ * n’ayant pas réalisé de chiffre d’affaire durant une période donnée (date début, date fin).
  */
 class ActionServeursSansChiffreAffaire extends Action
 {

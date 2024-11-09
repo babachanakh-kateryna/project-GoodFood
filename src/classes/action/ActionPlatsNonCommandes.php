@@ -5,6 +5,10 @@ namespace iutnc\deefy\action;
 use iutnc\deefy\action\Action;
 use iutnc\deefy\repository\GoodFoodRepository;
 
+/**
+ * Class ActionPlatsNonCommandes - 2. Affichage de la liste des plats (numéro et nom du plat)
+ * qui n’ont jamais été commandés pendant une période donnée (date début, date fin).
+ */
 class ActionPlatsNonCommandes extends Action
 {
     public function execute(): string
