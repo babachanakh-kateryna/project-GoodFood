@@ -2,14 +2,16 @@
 
 namespace iutnc\deefy\action;
 
-use iutnc\deefy\auth\AuthProvider;
-use iutnc\deefy\repository\GoodFoodRepository;
-
 /**
- * Class DefaultAction est une classe qui represente l'action par defaut
+ * Class DefaultAction - Action par défaut qui présente les fonctionnalités du site
  */
 class DefaultAction extends Action
 {
+    /**
+     * Exécute l'action par défaut pour afficher une page de bienvenue avec les fonctionnalités.
+     *
+     * @return string HTML avec la description des fonctionnalités disponibles
+     */
     public function execute(): string
     {
         return <<<HTML

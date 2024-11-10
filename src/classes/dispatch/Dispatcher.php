@@ -4,20 +4,30 @@ declare(strict_types=1);
 namespace iutnc\deefy\dispatch;
 
 use iutnc\deefy\action as act;
-use iutnc\deefy\render\Renderer;
 
 /**
- * Class Dispatcher
+ * Class Dispatcher - Gère l'appel des actions en fonction du paramètre 'action' dans l'URL.
  */
 class Dispatcher
 {
+    /**
+     * @var string|null Nom de l'action demandée
+     */
     private ?string $action = null;
 
+    /**
+     * Constructeur qui initialise l'action demandée depuis les paramètres GET
+     */
     function __construct()
     {
         $this->action = isset($_GET['action']) ? htmlspecialchars($_GET['action'], ENT_QUOTES, 'UTF-8') : 'default';
     }
 
+    /**
+     * Exécute l'action demandée en fonction de l'attribut $action
+     *
+     * @throws \Exception
+     */
     public function run(): void
     {
         $html = '';
@@ -55,6 +65,11 @@ class Dispatcher
         $this->renderPage($html);
     }
 
+    /**
+     * Affiche la page HTML avec le contenu généré par l'action
+     *
+     * @param string $html Contenu HTML généré par l'action
+     */
     private function renderPage(string $html): void
     {
         echo <<<HTML

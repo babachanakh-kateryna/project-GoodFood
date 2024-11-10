@@ -11,6 +11,12 @@ use iutnc\deefy\repository\GoodFoodRepository;
  */
 class ActionPlatsNonCommandes extends Action
 {
+    /**
+     * Exécute l'action pour afficher les plats non commandés
+     *
+     * @return string HTML avec la liste des plats ou un message si aucun plat trouvé
+     * @throws \Exception
+     */
     public function execute(): string
     {
         if (!isset($_GET['date_start']) || !isset($_GET['date_end'])) {
@@ -24,12 +30,12 @@ class ActionPlatsNonCommandes extends Action
         // obtenir les plats servis dans la période
         $plats = GoodFoodRepository::getInstance()->getPlatsNonCommandes($dateStart, $dateEnd);
 
-        /// si aucun plat n'a été servi dans cette période
+        // Si aucun plat non commandé trouvé
         if (empty($plats)) {
             return "Tous les plats ont été commandés dans cette période.";
         }
 
-        // afficher les plats servis
+        // Afficher les plats non commandés
         $html = "<h2>Plats non commandés entre $dateStart et $dateEnd</h2><ul>";
         foreach ($plats as $plat) {
             $html .= "<li>{$plat['numplat']} - {$plat['libelle']}</li>";
@@ -39,7 +45,12 @@ class ActionPlatsNonCommandes extends Action
         return $html;
     }
 
-    // form pour entrer la période
+
+    /**
+     * Affiche le formulaire pour sélectionner la période
+     *
+     * @return string HTML du formulaire de sélection de période
+     */
     private function renderForm(): string
     {
         return <<<HTML

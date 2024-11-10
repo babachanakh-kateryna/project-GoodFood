@@ -2,7 +2,6 @@
 
 namespace iutnc\deefy\repository;
 
-use iutnc\deefy\tables\Plat;
 use PDO;
 
 /**
@@ -10,10 +9,24 @@ use PDO;
  */
 class GoodFoodRepository
 {
+    /**
+     * @var PDO Instance de PDO pour la connexion à la base de données
+     */
     private \PDO $pdo;
+    /**
+     * @var GoodFoodRepository|null Instance unique de GoodFoodRepository pour le pattern Singleton
+     */
     private static ?GoodFoodRepository $instance = null;
+    /**
+     * @var array Configuration de la base de données
+     */
     private static array $config = [];
 
+    /**
+     * Constructeur privé pour initialiser la connexion à la base de données
+     *
+     * @param array $conf Configuration de la base de données
+     */
     private function __construct(array $conf)
     {
         $this->pdo = new PDO($conf['dsn'], $conf['user'], $conf['pass'],
@@ -21,6 +34,12 @@ class GoodFoodRepository
         );
     }
 
+    /**
+     * Retourne l'instance unique de GoodFoodRepository (Singleton)
+     *
+     * @return GoodFoodRepository Instance unique de GoodFoodRepository
+     * @throws \Exception Si la configuration de la base de données n'est pas définie
+     */
     public static function getInstance(): self
     {
         // Check if the configuration is set
@@ -33,6 +52,12 @@ class GoodFoodRepository
         return self::$instance;
     }
 
+    /**
+     * Définit la configuration de la base de données
+     *
+     * @param string $file Chemin vers le fichier de configuration
+     * @throws \Exception Si le fichier de configuration est invalide
+     */
     public static function setConfig(string $file): void
     {
         $conf = parse_ini_file($file);

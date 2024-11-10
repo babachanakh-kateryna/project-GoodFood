@@ -2,7 +2,7 @@
 
 namespace iutnc\deefy\action;
 
-use iutnc\deefy\action\Action;
+    use iutnc\deefy\action\Action;
 use iutnc\deefy\repository\GoodFoodRepository;
 
 /**
@@ -12,6 +12,12 @@ use iutnc\deefy\repository\GoodFoodRepository;
  */
 class ActionChiffreAffaireServeurs extends Action
 {
+    /**
+     * Exécute l'action pour afficher le chiffre d'affaire par serveur.
+     *
+     * @return string HTML avec les résultats ou un formulaire de sélection de période
+     * @throws \Exception
+     */
     public function execute(): string
     {
         // obtenir les dates de début et de fin et le numéro de la table
@@ -41,7 +47,11 @@ class ActionChiffreAffaireServeurs extends Action
         return $html;
     }
 
-    // form pour entrer la période
+    /**
+     * Affiche le formulaire pour entrer une période de dates.
+     *
+     * @return string HTML contenant le formulaire de période
+     */
     private function renderForm(): string
     {
         return <<<HTML

@@ -11,6 +11,12 @@ use iutnc\deefy\repository\GoodFoodRepository;
  */
 class ActionCalculMontantCommande extends Action
 {
+    /**
+     * Exécute l'action pour calculer le montant total d'une commande.
+     *
+     * @return string HTML avec le montant calculé ou un formulaire de sélection de commande
+     * @throws \Exception
+     */
     public function execute(): string
     {
         $numCommande = $_GET['numCommande'] ?? null;
@@ -29,7 +35,12 @@ class ActionCalculMontantCommande extends Action
         return "<h2>Montant total de la commande $numCommande: $montantTotal €</h2>";
     }
 
-    //form pour entrer le numéro de commande
+    /**
+     * Affiche le formulaire pour sélectionner le numéro de commande.
+     *
+     * @return string HTML contenant le formulaire de sélection
+     * @throws \Exception
+     */
     private function renderForm(): string
     {
         $commandes = GoodFoodRepository::getInstance()->getAllCommandeNumbers();

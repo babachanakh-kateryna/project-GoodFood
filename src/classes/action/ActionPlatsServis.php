@@ -11,6 +11,12 @@ use iutnc\deefy\repository\GoodFoodRepository;
  */
 class ActionPlatsServis extends Action
 {
+    /**
+     * Exécute l'action pour afficher les plats servis
+     *
+     * @return string HTML avec la liste des plats ou un message si aucun plat trouvé
+     * @throws \Exception
+     */
     public function execute(): string
     {
         if (!isset($_GET['date_start']) || !isset($_GET['date_end'])) {
@@ -39,7 +45,12 @@ class ActionPlatsServis extends Action
         return $html;
     }
 
-    // form pour entrer la période
+
+    /**
+     * Affiche le formulaire pour sélectionner la période
+     *
+     * @return string HTML du formulaire de sélection de période
+     */
     private function renderForm(): string
     {
         return <<<HTML

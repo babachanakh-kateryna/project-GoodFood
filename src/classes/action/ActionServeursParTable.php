@@ -12,6 +12,12 @@ use iutnc\deefy\repository\GoodFoodRepository;
 class ActionServeursParTable extends Action
 {
 
+    /**
+     * Exécute l'action pour afficher les serveurs par table et période
+     *
+     * @return string HTML avec la liste des serveurs ou un message si aucun serveur trouvé
+     * @throws \Exception
+     */
     public function execute(): string
     {
         // obtenir les dates de début et de fin et le numéro de la table
@@ -41,7 +47,12 @@ class ActionServeursParTable extends Action
         return $html;
     }
 
-    // form pour entrer la période
+    /**
+     * Affiche le formulaire pour sélectionner le numéro de table et la période
+     *
+     * @return string HTML du formulaire de sélection de table et de période
+     * @throws \Exception
+     */
     private function renderForm(): string
     {
         $tables = GoodFoodRepository::getInstance()->getAllTables();

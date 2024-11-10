@@ -11,6 +11,12 @@ use iutnc\deefy\repository\GoodFoodRepository;
  */
 class ActionServeursSansChiffreAffaire extends Action
 {
+    /**
+     * Exécute l'action pour afficher les serveurs sans chiffre d'affaire
+     *
+     * @return string HTML avec la liste des serveurs ou un message si aucun serveur trouvé
+     * @throws \Exception
+     */
     public function execute(): string
     {
         $dateStart = $_GET['date_start'] ?? null;
@@ -38,7 +44,12 @@ class ActionServeursSansChiffreAffaire extends Action
         return $html;
     }
 
-    // form pour entrer la période
+
+    /**
+     * Affiche le formulaire pour sélectionner la période
+     *
+     * @return string HTML du formulaire de sélection de période
+     */
     private function renderForm(): string
     {
         return <<<HTML
